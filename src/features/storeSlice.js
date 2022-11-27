@@ -21,12 +21,12 @@ export const agoraItemsSlice = createSlice({
             const itemToBuy = state.agoraItems.find(item => item.name === action.payload.name)
             if (itemToBuy && itemToBuy.inventory > 0)
                 itemToBuy.inventory -= 1
+        },
+        updatePrice: (state, action) => { //updatePrice({name: 'Iphone 12', price: 5})
+            const itemToUpdate = state.agoraItems.find(item => item.name === action.payload.name)
+            itemToUpdate.price = action.payload.price
         }
     },
-    updatePrice: (state, action) => { //updatePrice({name: 'Iphone 12', price: 5})
-        const itemToUpdate = state.agoraItems.find(item => item.name === action.payload.name)
-        itemToUpdate.price = action.payload.price
-    }
 
 
 })

@@ -5,8 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Hidden from '@mui/material/Hidden';
 import {
     addItem,
     buyItem,
@@ -14,19 +16,18 @@ import {
     updatePrice
 } from './storeSlice'
 
+
 export function Item(props) {
     const dispatch = useDispatch();
     const { item } = props
-
+    const [newPrice, setNewPrice] = useState("")
 
 
     return (
+
+
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
-                component="img"
-                alt="green iguana"
-                height="140"
-                image="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-finish-unselect-gallery-2-202207_FMT_WHH?wid=1280&hei=492&fmt=p-jpg&qlt=80&.v=1662129019563"
             />
             <CardContent>
                 <Typography gutterBottom variant="h4" component="div">
@@ -46,10 +47,23 @@ export function Item(props) {
                 <Button size="small"
                     onClick={() => dispatch(buyItem({ name: item.name }))}>
                     Buy</Button>
+                <TextField
+                    fullWidth
+                    label="New price"
+                    id="fullWidth"
+                    onChange={e => setNewPrice(e.target.value)}
+                    value={newPrice}
+                    required
+                    helperText="Enter new price"
+
+                />
+                <Button size="small"
+                    onClick={() => dispatch(updatePrice({ name: item.name, price: newPrice }))}>
+                    Edit Price</Button>
                 <Typography variant="body2" color="red">
                     Only {item.inventory} left in stock!
                 </Typography>
             </CardActions>
-        </Card>
+        </Card >
     );
 }
